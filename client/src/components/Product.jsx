@@ -7,6 +7,13 @@ function classNames(...classes) {
 }
 
 function Product({ products }) {
+  if (products === undefined)
+    return (
+      <>
+        <h1>Loading...</h1>
+      </>
+    );
+
   return (
     // global container
     <div className="container max-w-6xl mx-auto px-5 py-12">
@@ -21,7 +28,7 @@ function Product({ products }) {
       <div className="-mx-px grid grid-cols-2 border-l border-gray-200 sm:mx-0 md:grid-cols-3 lg:grid-cols-4">
         {products.map((product) => (
           <div
-            key={product.id}
+            key={product._id}
             className="group relative border-r border-b border-gray-200 p-4 sm:p-6"
           >
             <div className="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg bg-gray-200 group-hover:opacity-75">
@@ -33,7 +40,8 @@ function Product({ products }) {
             </div>
             <div className="pt-10 pb-4 text-center">
               <h3 className="text-sm font-medium text-gray-900">
-                <Link to={product.href}>
+                {/* CHANGE HREF LINK HERE */}
+                <Link to={`/products/${product._id}/`}>
                   <span aria-hidden="true" className="absolute inset-0" />
                   {product.name}
                 </Link>

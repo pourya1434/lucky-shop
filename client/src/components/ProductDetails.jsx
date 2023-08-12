@@ -39,13 +39,6 @@ export default function ProductDetails({ product }) {
                 <h2 id="information-heading" className="sr-only">
                   Product information
                 </h2>
-                <p className="mt-2 text-sm text-gray-500">
-                  Version {product.version.name} (Updated{" "}
-                  <time dateTime={product.version.datetime}>
-                    {product.version.date}
-                  </time>
-                  )
-                </p>
               </div>
             </div>
 
@@ -67,13 +60,11 @@ export default function ProductDetails({ product }) {
             </div>
 
             <div className="mt-10 border-t border-gray-200 pt-10">
-              <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
+              <h3 className="text-sm font-medium text-gray-900">
+                Description:
+              </h3>
               <div className="prose prose-sm mt-4 text-gray-500">
-                <ul>
-                  {product.highlights.map((highlight) => (
-                    <li key={highlight}>{highlight}</li>
-                  ))}
-                </ul>
+                <p>{product.description}</p>
               </div>
             </div>
 
