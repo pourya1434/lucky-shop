@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Product from "../components/Product";
 // import { products } from "../products";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchProductAction } from "../redux/slice/products/productSlice";
 
 function HomeScreen() {
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
   // old way
   // useEffect(() => {
   //   async function fetchProducts() {
@@ -22,6 +22,9 @@ function HomeScreen() {
   useEffect(() => {
     dispatch(fetchProductAction());
   }, [dispatch]);
+
+  const { isLoading, products, error } = useSelector((state) => state?.product);
+  console.log("isLoading", isLoading, "product", products, "errors", error);
 
   return (
     <div>

@@ -7,7 +7,7 @@ import axios from "axios";
 
 // initialState
 const initialState = {
-  isLodaing: true,
+  isLoading: false,
   products: [],
   product: {},
   error: "",
@@ -31,14 +31,14 @@ const productSlice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder.addCase(fetchProductAction.pending, (state) => {
-      state.isLodaing = true;
+      state.isLoading = true;
     });
     builder.addCase(fetchProductAction.fulfilled, (state, action) => {
-      state.isLodaing = false;
+      state.isLoading = false;
       state.products = action.payload;
     });
     builder.addCase(fetchProductAction.rejected, (state, action) => {
-      state.isLodaing = false;
+      state.isLoading = false;
       state.error = action.payload;
     });
   },
