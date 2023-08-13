@@ -46,3 +46,6 @@ const productSlice = createSlice({
 // reducer
 const productReducer = productSlice.reducer;
 export default productReducer;
+
+// TODO
+// گرفتن سینگل پروداکت. الان خودش اکسیوس میزنه ولی اسلایس نداره

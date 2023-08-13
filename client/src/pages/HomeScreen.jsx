@@ -28,8 +28,18 @@ function HomeScreen() {
 
   return (
     <div>
-      <Product products={products} />
-      <Footer />
+      {isLoading ? (
+        <h2 className="text-4xl text-gray-800 font-bold pt-12 m-6">
+          Loading ...
+        </h2>
+      ) : error ? (
+        <h1 className="text-4xl text-red-700 font-bold pt-12 m-6">{error}</h1>
+      ) : (
+        <>
+          <Product products={products} />
+          <Footer />
+        </>
+      )}
     </div>
   );
 }
