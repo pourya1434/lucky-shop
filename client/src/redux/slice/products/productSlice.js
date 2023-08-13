@@ -1,8 +1,4 @@
-import {
-  createAsyncThunk,
-  createSelector,
-  createSlice,
-} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // initialState
@@ -14,7 +10,8 @@ const initialState = {
 };
 
 // action creator
-export const fetchProductAction = createAsyncThunk(
+// fetch all products
+export const fetchProductsAction = createAsyncThunk(
   "products/fetch",
   async (payload, { rejectWithValue }) => {
     try {
@@ -25,17 +22,42 @@ export const fetchProductAction = createAsyncThunk(
     }
   }
 );
+// fetch single product
+export const fetchProductAction = createAsyncThunk(
+  "product/fetch",
+  async (id, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(`/api/products/${id}/`);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 // create slice
 const productSlice = createSlice({
   name: "products",
   initialState,
   extraReducers: (builder) => {
+    // get all products
+    builder.addCase(fetchProductsAction.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(fetchProductsAction.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.products = action.payload;
+    });
+    builder.addCase(fetchProductsAction.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
+    // get single product
     builder.addCase(fetchProductAction.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(fetchProductAction.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.products = action.payload;
+      state.product = action.payload;
     });
     builder.addCase(fetchProductAction.rejected, (state, action) => {
       state.isLoading = false;
@@ -46,6 +68,3 @@ const productSlice = createSlice({
 // reducer
 const productReducer = productSlice.reducer;
 export default productReducer;
-
-// TODO
-// گرفتن سینگل پروداکت. الان خودش اکسیوس میزنه ولی اسلایس نداره
