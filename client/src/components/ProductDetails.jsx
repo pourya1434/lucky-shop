@@ -1,16 +1,26 @@
-import React from "react";
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function ProductDetails({ product }) {
+  const [qty, setQty] = useState("1");
+
+  const navigate = useNavigate();
+
   if (product === undefined)
     return (
       <>
         <h1>Loading...</h1>
       </>
     );
+
+  const ConsoleLog = ({ children }) => {
+    console.log(children);
+    return false;
+  };
+
+  const addToCartHandler = (product, qty) => {
+    navigate(`/cart/${product._id}?qty=${qty}`);
+  };
 
   return (
     <div className="bg-white">
@@ -44,19 +54,36 @@ export default function ProductDetails({ product }) {
 
             <p className="mt-6 text-gray-500">{product.description}</p>
 
-            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
-              <button
-                type="button"
-                className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
-              >
-                Pay {product.price}
-              </button>
-              <button
-                type="button"
-                className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-50 py-3 px-8 text-base font-medium text-indigo-700 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
-              >
-                Preview
-              </button>
+            <div className="items-center justify-center mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
+              {product.counterInStock > 0 ? (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => addToCartHandler(product, qty)}
+                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+                  >
+                    ADD TO CART
+                  </button>
+
+                  <select
+                    id="qty"
+                    defaultValue={"DEFAULT"}
+                    onChange={(e) => setQty(e.target.value)}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 items-center text-right pr-5 justify-center hover:bg-gray-200"
+                  >
+                    <option value={"DEFAULT"} disabled>
+                      تعداد
+                    </option>
+                    {[...Array(product.counterInStock).keys()].map((i) => (
+                      <option value={i + 1} key={i + 1}>
+                        {i + 1}
+                      </option>
+                    ))}
+                  </select>
+                </>
+              ) : (
+                <p className="bold text-2xl line-through">Out of stock</p>
+              )}
             </div>
 
             <div className="mt-10 border-t border-gray-200 pt-10">
