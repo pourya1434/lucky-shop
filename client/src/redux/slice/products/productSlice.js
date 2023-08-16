@@ -12,7 +12,7 @@ const initialState = {
 // action creator
 // fetch all products
 export const fetchProductsAction = createAsyncThunk(
-  "products/fetch",
+  "products/fetchAllProdcuts",
   async (payload, { rejectWithValue }) => {
     try {
       const res = await axios.get("/api/products/");
@@ -24,7 +24,7 @@ export const fetchProductsAction = createAsyncThunk(
 );
 // fetch single product
 export const fetchProductAction = createAsyncThunk(
-  "product/fetch",
+  "products/fetchSingleProduct",
   async (id, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(`/api/products/${id}/`);
