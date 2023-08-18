@@ -18,6 +18,9 @@
 /client/.env.test.local
 /client/.env.production.local
 
+# virtualenv
+/.venv
+server/server/__pycache__/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
