@@ -1,12 +1,16 @@
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import React, { Fragment } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
+
 function Header() {
+  const cartItems = useSelector((state) => state.cart);
+
   return (
     <div className="flex w-full h-14 items-center justify-between p-6 bg-black text-white">
       <Link to="/">
@@ -43,6 +47,7 @@ function Header() {
               />
             </svg>
             <span>Cart</span>
+            <span>{cartItems.length}</span>
           </Link>
         </li>
         <Menu as="div" className="relative inline-block text-left">
