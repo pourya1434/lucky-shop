@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { add } from "../redux/slice/cart/cartSlice";
 
 export default function ProductDetails({ product }) {
-  const [qty, setQty] = useState("1");
+  const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
