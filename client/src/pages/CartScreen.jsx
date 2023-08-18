@@ -1,27 +1,9 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams, useSearchParams } from "react-router-dom";
-import { cartAction } from "../redux/slice/cart/cartSlice";
+import React from "react";
 
 function CartScreen() {
-  let { id: productId } = useParams();
-  const [searchParams] = useSearchParams();
-  const qty = searchParams.get("qty") ? Number(searchParams.get("qty")) : 1;
-  const dispatch = useDispatch();
-  const { cartItems } = useSelector((state: any) => state.cart);
-  // console.log(cartItems);
+  // const qty = searchParams.get("qty") ? Number(searchParams.get("qty")) : 1;
 
-  localStorage.setItem("cartItems", JSON.stringify(cartItems));
-
-  useEffect(() => {
-    const data = {
-      id: productId,
-      qty,
-    };
-    dispatch(cartAction(data));
-  }, [dispatch, productId, qty]);
-
-  return <div>CartScreen</div>;
+  return <div className="container mx-auto p-1">cart screen</div>;
 }
 
 export default CartScreen;

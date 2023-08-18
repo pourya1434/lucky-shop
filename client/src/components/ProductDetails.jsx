@@ -1,11 +1,17 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { add } from "../redux/slice/cart/cartSlice";
 
 export default function ProductDetails({ product }) {
   const [qty, setQty] = useState("1");
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const data = {
+    product,
+    qty,
+  };
   if (product === undefined)
     return (
       <>
@@ -18,7 +24,8 @@ export default function ProductDetails({ product }) {
     return false;
   };
 
-  const addToCartHandler = (product, qty) => {
+  const addToCartHandler = (data) => {
+    dispatch(add(data));
     navigate(`/cart/${product._id}?qty=${qty}`);
   };
 
@@ -59,7 +66,7 @@ export default function ProductDetails({ product }) {
                 <>
                   <button
                     type="button"
-                    onClick={() => addToCartHandler(product, qty)}
+                    onClick={() => addToCartHandler(data)}
                     className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
                   >
                     ADD TO CART
