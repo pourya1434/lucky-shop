@@ -19,11 +19,6 @@ export default function ProductDetails({ product }) {
       </>
     );
 
-  const ConsoleLog = ({ children }) => {
-    console.log(children);
-    return false;
-  };
-
   const addToCartHandler = (data) => {
     dispatch(add(data));
     navigate(`/cart/${product._id}?qty=${qty}`);
