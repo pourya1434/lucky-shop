@@ -119,8 +119,8 @@ function CartScreen() {
                 <p className="text-sm text-gray-700">including VAT</p>
               </div>
             </div>
-            <button className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600 ">
-              Check out
+            <button className="mt-6 w-full rounded-md bg-blue-700 py-1.5 font-bold text-blue-50 hover:bg-green-600 ">
+              Shiping
             </button>
           </div>
         </div>
