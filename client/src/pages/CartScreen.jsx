@@ -1,35 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  decreaseCart,
+  increaseCart,
+  remove,
+} from "../redux/slice/cart/cartSlice";
 
 function CartScreen() {
-  const [totalprice, setTotalprice] = useState(0);
-
   // const qty = searchParams.get("qty") ? Number(searchParams.get("qty")) : 1;
   const cartItems = useSelector((state) => state.cart.cartItems); // array of objects
+  const dispatch = useDispatch();
 
-  const ConsoleLog = ({ children }) => {
-    console.log(children);
-    return false;
+  const handleDecreaseItem = (id) => {
+    dispatch(decreaseCart(id));
   };
-  console.log(cartItems);
 
-  // let price = 0;
-  // useEffect(() => {
-  //   calculateTotalPrice(cartItems);
-  //   setTotalprice(totalprice + price);
-  // }, [price, cartItems]);
-
-  // console.log(price);
-  console.log("totasl ", totalprice);
-
-  // const calculateTotalPrice = (cartITems) => {
-  //   return cartITems.reduce((acc, item) => {
-  //     price = item.product.price * item.qty;
-  //     // console.log("item.product.price", item.product.price, "qty", item.qty);
-  //     return price;
-  //   });
-  // };
-
+  const handleIncreaseItem = (id) => {
+    dispatch(increaseCart(id));
+  };
+  const handleRemoveItem = (id) => {
+    dispatch(remove(id));
+  };
   return (
     <div className="container mx-auto p-1">
       <div className="h-screen pt-20">
@@ -41,7 +32,7 @@ function CartScreen() {
                 <div className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
                   <img
                     src={item.product.imageSrc}
-                    alt="product-image"
+                    alt={item.product.imageAlt}
                     className="w-full rounded-lg sm:w-40"
                   />
                   <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
@@ -55,17 +46,24 @@ function CartScreen() {
                     </div>
                     <div className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                       <div className="flex items-center border-gray-100">
-                        <span className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50">
+                        <span
+                          className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                          onClick={() => handleDecreaseItem(item.product._id)}
+                        >
                           {" "}
                           -{" "}
                         </span>
                         <input
-                          className="h-8 w-8 border bg-white text-center text-xs outline-none"
+                          className="h-9 w-9 border bg-white text-center text-xs outline-none "
                           type="number"
-                          value="2"
+                          onChange={() => handleDecreaseItem(item.product._id)}
+                          value={item.qty}
                           min="1"
                         />
-                        <span className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50">
+                        <span
+                          className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                          onClick={() => handleIncreaseItem(item.product._id)}
+                        >
                           {" "}
                           +{" "}
                         </span>
@@ -75,14 +73,15 @@ function CartScreen() {
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
                           viewBox="0 0 24 24"
-                          stroke-width="1.5"
+                          strokeWidth="1.5"
                           stroke="currentColor"
-                          className="h-5 w-5 cursor-pointer duration-150 hover:text-red-500"
+                          className="w-6 h-6 text-red-900 hover:cursor-pointer"
+                          onClick={() => handleRemoveItem(item.product._id)}
                         >
                           <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M6 18L18 6M6 6l12 12"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
                           />
                         </svg>
                       </div>

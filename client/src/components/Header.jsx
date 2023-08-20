@@ -10,7 +10,6 @@ function classNames(...classes) {
 
 function Header() {
   const cartItems = useSelector((state) => state.cart.cartItems);
-  console.log(cartItems);
 
   return (
     <div className="flex w-full h-14 items-center justify-between p-6 bg-black text-white">
