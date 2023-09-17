@@ -53,13 +53,13 @@ function CartScreen() {
                           {" "}
                           -{" "}
                         </span>
-                        <input
+                        {/* <input
                           className="h-9 w-9 border bg-white text-center text-xs outline-none "
                           type="number"
                           onChange={() => handleDecreaseItem(item.product._id)}
                           value={item.qty}
                           min="1"
-                        />
+                        /> */}
                         <span
                           className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
                           onClick={() => handleIncreaseItem(item.product._id)}
