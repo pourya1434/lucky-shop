@@ -24,7 +24,7 @@ export const loginUserAction = createAsyncThunk(
         },
       };
       const { data } = await axios.post(
-        "api/users/login/",
+        "/api/users/login/",
         {
           username: payload.email,
           password: payload.password,
