@@ -33,6 +33,7 @@ def getRoutes(request):
 def registerUser(request):
     try:
         data = request.data
+        print(data)
         user = User.objects.create(
             first_name=data['name'],
             username=data['email'],
