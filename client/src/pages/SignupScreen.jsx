@@ -1,6 +1,6 @@
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import React,{useState} from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {useDispatch} from 'react-redux';
 import {registerUserAction} from '../redux/slice/users/userSlice';
 
@@ -10,11 +10,13 @@ export default function Signup() {
     password: ""
   })
   const dispatch = useDispatch()
+  const navigator = useNavigate()
 
   const submitHandler = (e) => {
     e.preventDefault();
     console.log(formData);
-    dispatch(registerUserAction(formData))
+    dispatch(registerUserAction(formData));
+    navigator('/')
   }
 
   const onChangeHandler = (e) => {

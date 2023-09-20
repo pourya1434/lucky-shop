@@ -1,7 +1,7 @@
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { loginUserAction } from "../redux/slice/users/userSlice";
 
 export default function Login() {
@@ -10,11 +10,13 @@ export default function Login() {
     password: ''
   })
   const dispatch = useDispatch();
+  const navigator = useNavigate();
   // const { userAuth } = useSelector((state) => state.user);
 
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(loginUserAction(formData));
+    navigator('/')
   };
   const onChangeHandler = (e) => {
     SetFormData({...formData, [e.target.name]: e.target.value})
