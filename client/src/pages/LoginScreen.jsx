@@ -5,15 +5,20 @@ import { Link } from "react-router-dom";
 import { loginUserAction } from "../redux/slice/users/userSlice";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, SetFormData] = useState({
+    email: '',
+    password: ''
+  })
   const dispatch = useDispatch();
-  const { userAuth } = useSelector((state) => state.user);
+  // const { userAuth } = useSelector((state) => state.user);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(loginUserAction(email, password));
+    dispatch(loginUserAction(formData));
   };
+  const onChangeHandler = (e) => {
+    SetFormData({...formData, [e.target.name]: e.target.value})
+  }
   return (
     <>
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -57,7 +62,7 @@ export default function Login() {
                   required
                   className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   placeholder="Email address"
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={onChangeHandler}
                 />
               </div>
               <div>
@@ -72,7 +77,7 @@ export default function Login() {
                   required
                   className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   placeholder="Password"
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={onChangeHandler}
                 />
               </div>
             </div>
