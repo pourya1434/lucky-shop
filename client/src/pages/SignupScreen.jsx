@@ -5,15 +5,20 @@ import {useDispatch} from 'react-redux';
 import {registerUserAction} from '../redux/slice/users/userSlice';
 
 export default function Signup() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-
+  const [formData, setFormData] = useState({
+    email: "",
+    password: ""
+  })
   const dispatch = useDispatch()
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(email, password);
-    dispatch(registerUserAction(email, password))
+    console.log(formData);
+    dispatch(registerUserAction(formData))
+  }
+
+  const onChangeHandler = (e) => {
+    setFormData({...formData, [e.target.name] : e.target.value})
   }
 
   return (
@@ -45,7 +50,7 @@ export default function Signup() {
                   required
                   className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   placeholder="Email address"
-                  onChange={e=> setEmail(e.target.value)}
+                  onChange={onChangeHandler}
                 />
               </div>
               <div>
@@ -60,7 +65,7 @@ export default function Signup() {
                   required
                   className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   placeholder="Password"
-                  onChange={e => setPassword(e.target.value)}
+                  onChange={onChangeHandler}
                 />
               </div>
             </div>

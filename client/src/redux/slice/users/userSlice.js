@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import {useEffect} from 'react'
 
 const initialState = {
   isLoading: false,
@@ -12,7 +11,6 @@ const initialState = {
   },
 };
 // action creator
-
 // login
 export const loginUserAction = createAsyncThunk(
   "user/login",
@@ -42,21 +40,22 @@ export const loginUserAction = createAsyncThunk(
 // register
 export const registerUserAction = createAsyncThunk(
   "user/register",
-  async(payload, {rejectWithValue}) => {
+  async({email, password}, {rejectWithValue}) => {
     try {
       // header
       const config = {
         "Content-Type": 'application/json'
       }
-      const {data} = axios.post(
+      const {data} = await axios.post(
         "/api/users/register/",
         {
-          name: payload.email,
-          email: payload.email,
-          password: payload.password
+          name: email,
+          email: email,
+          password: password
         },
         config
       )
+      localStorage.setItem("userInfo", JSON.stringify(data))
       return data
     } catch (error) {
       return rejectWithValue(error.message)
