@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import {useEffect} from 'react'
 
 const initialState = {
   isLoading: false,
@@ -31,6 +32,7 @@ export const loginUserAction = createAsyncThunk(
         },
         config
       );
+        localStorage.setItem("userInfo", JSON.stringify(data))
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
