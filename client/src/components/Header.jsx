@@ -1,6 +1,6 @@
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import {logout} from "../redux/slice/users/userSlice";
@@ -11,9 +11,14 @@ function classNames(...classes) {
 
 function Header() {
   const cartItems = useSelector((state) => state.cart.cartItems);
-  const {userInfo} = useSelector(state => state.user.userAuth)
+  const {userInfo} = useSelector((state) => state.user.userAuth)
+  const [name, setName] = useState("")
   const dispatch = useDispatch()
 
+  useEffect(() => {
+    setName(userInfo.name)
+  },[userInfo.name])
+  
   return (
     <div className="flex w-full h-14 items-center justify-between p-6 bg-black text-white">
       <Link to="/">
@@ -107,7 +112,7 @@ function Header() {
           </> : <>
           <div>
             <Menu.Button className="inline-flex w-full font-bold justify-center gap-x-1.5 rounded-md px-3 py-2 text-white">
-              Account
+            {name}
               <ChevronDownIcon
                 className="-mr-1 h-5 w-5 text-gray-400"
                 aria-hidden="true"

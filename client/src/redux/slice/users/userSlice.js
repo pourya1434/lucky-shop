@@ -6,7 +6,7 @@ const initialState = {
   error: "",
   userAuth: {
     userInfo: localStorage.getItem("userInfo")
-      ? JSON.stringify(localStorage.getItem("userInfo"))
+      ? JSON.parse(localStorage.getItem("userInfo"))
       : {},
   },
 };
