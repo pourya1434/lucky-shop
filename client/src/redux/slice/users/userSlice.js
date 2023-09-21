@@ -93,8 +93,15 @@ const userSlice = createSlice({
       state.error = action.payload
     })
   },
+  reducers: {
+    logout(state, action){
+      state.userAuth.userInfo = {};
+      localStorage.removeItem("userInfo");
+    }
+  }
 });
 
 // reducer
 const userReducer = userSlice.reducer;
+export const {logout} = userSlice.actions;
 export default userReducer;

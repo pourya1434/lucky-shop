@@ -1,8 +1,9 @@
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import React, { Fragment } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import {logout} from "../redux/slice/users/userSlice";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -11,7 +12,8 @@ function classNames(...classes) {
 function Header() {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const {userInfo} = useSelector(state => state.user.userAuth)
-  
+  const dispatch = useDispatch()
+
   return (
     <div className="flex w-full h-14 items-center justify-between p-6 bg-black text-white">
       <Link to="/">
@@ -139,7 +141,8 @@ function Header() {
                 <Menu.Item>
                   {({ active }) => (
                     <Link
-                      to="/logout/"
+                      to="/"
+                      onClick={()=>dispatch(logout())}
                       className={classNames(
                         active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                         "block px-4 py-2 text-sm"
