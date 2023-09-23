@@ -9,6 +9,7 @@ import SignupScreen from "./pages/SignupScreen";
 import ProfileScreen from "./pages/ProfileScreen";
 import ShippingScreen from "./pages/ShippingScreen";
 import Footer from "./components/Footer";
+import CheckoutScreen from "./pages/CheckoutScreen";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/profile/" element={<ProfileScreen />} />
         <Route path="/shipping/" element={<ShippingScreen />} />
         <Route path="/signup/" element={<SignupScreen />} />
+        <Route path="/checkout/" element={<CheckoutScreen />} />
       </Routes>
       <Footer />
     </BrowserRouter>

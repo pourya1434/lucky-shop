@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
+import { saveShippingAddress } from '../redux/slice/cart/cartSlice'
 
 function ShippingScreen() {
     const [formData, SetFormData] = useState({
@@ -19,7 +20,8 @@ function ShippingScreen() {
     
       const submitHandler = (e) => {
         e.preventDefault();
-        
+        dispatch(saveShippingAddress(formData))
+        navigator('/checkout/')
       };
 
       const onChangeHandler = (e) => {
@@ -29,7 +31,7 @@ function ShippingScreen() {
     <>
     
     {isLoading ? (<Loader />) : error ? (<Message>{error}</Message>) : message ? (<Message>{message}</Message>) : (
-        <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="flex min-h-screen items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>
             <Link to="/">
