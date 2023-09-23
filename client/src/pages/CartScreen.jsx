@@ -5,6 +5,7 @@ import {
   increaseCart,
   remove,
 } from "../redux/slice/cart/cartSlice";
+import { Link } from 'react-router-dom';
 
 function CartScreen() {
   // const qty = searchParams.get("qty") ? Number(searchParams.get("qty")) : 1;
@@ -119,9 +120,11 @@ function CartScreen() {
                 <p className="text-sm text-gray-700">including VAT</p>
               </div>
             </div>
-            <button className="mt-6 w-full rounded-md bg-blue-700 py-1.5 font-bold text-blue-50 hover:bg-green-600 ">
+           <Link to='/shipping/'>
+           <button className="mt-6 w-full rounded-md bg-blue-700 py-1.5 font-bold text-blue-50 hover:bg-green-600 ">
               Shiping
             </button>
+           </Link>
           </div>
         </div>
       </div>
