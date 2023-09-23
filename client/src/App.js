@@ -8,6 +8,7 @@ import ProductScreen from "./pages/ProductScreen";
 import SignupScreen from "./pages/SignupScreen";
 import ProfileScreen from "./pages/ProfileScreen";
 import ShippingScreen from "./pages/ShippingScreen";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/shipping/" element={<ShippingScreen />} />
         <Route path="/signup/" element={<SignupScreen />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

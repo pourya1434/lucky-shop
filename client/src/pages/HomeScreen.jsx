@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Footer from "../components/Footer";
 import Product from "../components/Product";
 import { fetchProductsAction } from "../redux/slice/products/productSlice";
 
@@ -13,7 +12,7 @@ function HomeScreen() {
   const { isLoading, products, error } = useSelector((state) => state?.product);
 
   return (
-    <div>
+    <div className="min-h-screen">
       {isLoading ? (
         <h2 className="text-4xl text-gray-800 font-bold pt-12 m-6">
           Loading ...
@@ -23,7 +22,7 @@ function HomeScreen() {
       ) : (
         <>
           <Product products={products} />
-          <Footer />
+         
         </>
       )}
     </div>

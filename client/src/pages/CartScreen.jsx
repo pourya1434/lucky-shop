@@ -23,7 +23,7 @@ function CartScreen() {
     dispatch(remove(id));
   };
   return (
-    <div className="container mx-auto p-1">
+    <div className="container mx-auto p-1 min-h-screen">
       <div className="h-screen pt-20">
         <div className="mx-auto max-w-5xl justify-center items-center px-6 flex-col space-y-2">
           {/* map trough cartItems */}

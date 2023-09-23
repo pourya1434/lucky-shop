@@ -15,7 +15,7 @@ function ProductScreen() {
   const { isLoading, product, error } = useSelector((state) => state?.product);
 
   return (
-    <div>
+    <div className="min-h-screen">
       {isLoading ? (
         <h2 className="text-4xl text-gray-800 font-bold pt-12 m-6">
           Loading ...
