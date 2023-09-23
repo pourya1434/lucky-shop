@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Message from "../components/Message";
@@ -6,18 +6,18 @@ import Loader from "../components/Loader";
 import { saveShippingAddress } from '../redux/slice/cart/cartSlice'
 
 function ShippingScreen() {
+    const {shippingAddress} = useSelector((state)=> state.cart)
+
     const [formData, SetFormData] = useState({
-        name: '',
-        city: '',
-        street: '',
-        postalCode: ''
+        name: shippingAddress.name,
+        city: shippingAddress.city,
+        street: shippingAddress.street,
+        postalCode: shippingAddress.postalCode
       })
       const [message, setMessage] = useState("")
       const dispatch = useDispatch();
       const navigator = useNavigate();
       const { isLoading, error, userAuth } = useSelector((state) => state.user);
-    
-    
       const submitHandler = (e) => {
         e.preventDefault();
         dispatch(saveShippingAddress(formData))
@@ -60,6 +60,7 @@ function ShippingScreen() {
                   id="name"
                   name="name"
                   type="text"
+                  value={formData.name}
                   className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   placeholder="full name"
                   onChange={onChangeHandler}
@@ -72,6 +73,7 @@ function ShippingScreen() {
                 <input
                   id="city"
                   name="city"
+                  value={formData.city}
                   type="text"
                   required
                   className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
@@ -86,6 +88,7 @@ function ShippingScreen() {
                 <input
                   id="street"
                   name="street"
+                  value={formData.street}
                   type="text"
                   required
                   className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
@@ -100,6 +103,7 @@ function ShippingScreen() {
                 <input
                   id="postalCode"
                   name="postalCode"
+                  value={formData.postalCode}
                   type="text"
                   required
                   className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
