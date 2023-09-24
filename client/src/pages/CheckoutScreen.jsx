@@ -1,9 +1,13 @@
 import { RadioGroup } from "@headlessui/react";
 import { CheckCircleIcon } from "@heroicons/react/20/solid";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Steps from "../components/steps";
+import {
+  saveDeliveryMethod,
+  savePaymentMethod,
+} from "../redux/slice/cart/cartSlice";
 
 // static data
 // status => upcoming, current, complete
@@ -53,6 +57,7 @@ function classNames(...classes) {
 function CheckoutScreen() {
   const { shippingAddress } = useSelector((state) => state.cart);
   const navigator = useNavigate();
+  const dispatch = useDispatch();
   const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(
     deliveryMethods[0]
   );
@@ -73,6 +78,8 @@ function CheckoutScreen() {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    dispatch(saveDeliveryMethod(selectedDeliveryMethod));
+    dispatch(savePaymentMethod(selectedPaymentMethod));
   };
   return (
     <div className="min-h-screen items-center justify-center grid grid-cols-3 gap-2 bg-gray-50">
