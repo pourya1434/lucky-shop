@@ -1,24 +1,13 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { CheckIcon } from '@heroicons/react/20/solid'
 
-// status => upcoming, current, complete
-const steps = [
-  { name: 'Login', description: 'Login to your account', href: '/login/', status: 'complete' },
-  {
-    name: 'Shipping',
-    description: 'Insert your address',
-    href: '/shipping/',
-    status: 'current',
-  },
-  { name: 'Payment', description: 'Buy it', href: '/checkout/', status: 'upcoming' },
-  { name: 'Place order', description: 'order', href: '#', status: 'upcoming' },
-]
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Steps() {
+export default function Steps({steps}) {
   return (
     <nav aria-label="Progress">
       <ol role="list" className="overflow-hidden">

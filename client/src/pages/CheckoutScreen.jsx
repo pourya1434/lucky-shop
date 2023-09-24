@@ -5,6 +5,18 @@ import { CheckCircleIcon, TrashIcon } from '@heroicons/react/20/solid'
 import Steps from '../components/steps'
 
 // static data
+   // status => upcoming, current, complete
+   const steps = [
+    { name: 'Login', description: 'Login to your account', href: '/login/', status: 'complete' },
+    {
+      name: 'Shipping',
+      description: 'Insert your address',
+      href: '/shipping/',
+      status: 'complete',
+    },
+    { name: 'Payment', description: 'Buy it', href: '/checkout/', status: 'current' },
+    { name: 'Place order', description: 'order', href: '#', status: 'upcoming' },
+  ]
 
   const deliveryMethods = [
     { id: 1, title: 'Standard', turnaround: '4–10 business days', price: '$5.00' },
@@ -23,7 +35,7 @@ function CheckoutScreen() {
   return (
     <div className='flex min-h-screen items-center justify-center grid grid-cols-3 gap-2 bg-gray-50'>
       <div className="ml-auto">
-          <Steps />
+          <Steps steps={steps} />
       </div>
         
       <div className='flex col-span-2 items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>

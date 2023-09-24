@@ -7,6 +7,18 @@ import { saveShippingAddress } from '../redux/slice/cart/cartSlice'
 import Steps  from '../components/steps'
 
 function ShippingScreen() {
+    // status => upcoming, current, complete
+    const steps = [
+      { name: 'Login', description: 'Login to your account', href: '/login/', status: 'complete' },
+      {
+        name: 'Shipping',
+        description: 'Insert your address',
+        href: '/shipping/',
+        status: 'current',
+      },
+      { name: 'Payment', description: 'Buy it', href: '/checkout/', status: 'upcoming' },
+      { name: 'Place order', description: 'order', href: '#', status: 'upcoming' },
+    ]
     const {shippingAddress} = useSelector((state)=> state.cart)
 
     const [formData, SetFormData] = useState({
@@ -32,7 +44,7 @@ function ShippingScreen() {
     <div className="flex min-h-screen items-center justify-center grid grid-cols-3 gap-2">
       
       <div className="ml-auto">
-        <Steps />
+        <Steps steps={steps} />
       </div>
     
     {isLoading ? (<Loader />) : error ? (<Message>{error}</Message>) : message ? (<Message>{message}</Message>) : (
