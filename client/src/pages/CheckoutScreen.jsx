@@ -9,9 +9,9 @@ import Steps from "../components/steps";
 // status => upcoming, current, complete
 const steps = [
   {
-    name: "Login",
-    description: "Login to your account",
-    href: "/login/",
+    name: "Cart",
+    description: "Items in yout cart",
+    href: "/cart",
     status: "complete",
   },
   {
@@ -80,7 +80,7 @@ function CheckoutScreen() {
         <Steps steps={steps} />
       </div>
 
-      <div className="flex col-span-2 items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="col-span-2 w-lg items-center justify-center m-auto py-12 px-4 sm:px-6 lg:px-8">
         <form onSubmit={submitHandler}>
           <div>
             <div className="mt-10 border-t border-gray-200 pt-10">

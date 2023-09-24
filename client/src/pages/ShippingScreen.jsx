@@ -10,9 +10,9 @@ function ShippingScreen() {
   // status => upcoming, current, complete
   const steps = [
     {
-      name: "Login",
-      description: "Login to your account",
-      href: "/login/",
+      name: "Cart",
+      description: "Items in yout cart",
+      href: "/cart",
       status: "complete",
     },
     {
