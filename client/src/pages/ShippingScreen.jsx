@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { saveShippingAddress } from '../redux/slice/cart/cartSlice'
+import Steps  from '../components/steps'
 
 function ShippingScreen() {
     const {shippingAddress} = useSelector((state)=> state.cart)
@@ -28,17 +29,17 @@ function ShippingScreen() {
         SetFormData({...formData, [e.target.name]: e.target.value})
       }
   return (
-    <>
+    <div className="flex min-h-screen items-center justify-center grid grid-cols-3 gap-2">
+      
+      <div className="ml-auto">
+        <Steps />
+      </div>
     
     {isLoading ? (<Loader />) : error ? (<Message>{error}</Message>) : message ? (<Message>{message}</Message>) : (
-        <div className="flex min-h-screen items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="flex col-span-2 items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>
-            <Link to="/">
-              <h1 className="text-3xl font-bold font-handwrite text-center">
-                Lucky.
-              </h1>
-            </Link>
+            
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
               Insert you'r address
             </h2>
@@ -60,7 +61,7 @@ function ShippingScreen() {
                   id="name"
                   name="name"
                   type="text"
-                  value={formData.name}
+                  value={formData.name ? formData.name : ''}
                   className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   placeholder="full name"
                   onChange={onChangeHandler}
@@ -73,7 +74,7 @@ function ShippingScreen() {
                 <input
                   id="city"
                   name="city"
-                  value={formData.city}
+                  value={formData.city ? formData.city : ''}
                   type="text"
                   required
                   className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
@@ -88,7 +89,7 @@ function ShippingScreen() {
                 <input
                   id="street"
                   name="street"
-                  value={formData.street}
+                  value={formData.street ? formData.street : ''}
                   type="text"
                   required
                   className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
@@ -103,7 +104,7 @@ function ShippingScreen() {
                 <input
                   id="postalCode"
                   name="postalCode"
-                  value={formData.postalCode}
+                  value={formData.postalCode ? formData.postalCode : ''}
                   type="text"
                   required
                   className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
@@ -134,7 +135,7 @@ function ShippingScreen() {
       </div>
     )
     }
-  </>
+  </div>
   )
 }
 
