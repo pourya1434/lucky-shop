@@ -2,7 +2,7 @@ import { RadioGroup } from "@headlessui/react";
 import { CheckCircleIcon } from "@heroicons/react/20/solid";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Steps from "../components/steps";
 import {
   saveDeliveryMethod,
@@ -30,7 +30,12 @@ const steps = [
     href: "/checkout/",
     status: "current",
   },
-  { name: "Place order", description: "order", href: "#", status: "upcoming" },
+  {
+    name: "Place order",
+    description: "order",
+    href: "/placeorder/",
+    status: "upcoming",
+  },
 ];
 
 const deliveryMethods = [
@@ -64,12 +69,7 @@ function CheckoutScreen() {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(
     paymentMethods[0]
   );
-  console.log(
-    "delivery method:",
-    selectedDeliveryMethod,
-    "payment method: ",
-    selectedPaymentMethod
-  );
+
   useEffect(() => {
     if (!shippingAddress.postalCode) {
       navigator("/shipping/");
@@ -202,27 +202,29 @@ function CheckoutScreen() {
                   ))}
                 </div>
               </fieldset>
-              <button
-                type="submit"
-                className="group relative flex w-full justify-center mt-7 rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-sm font-medium text-white hover:bg-green-600  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              >
-                <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="w-6 h-6"
-                  >
-                    <path d="M4.5 3.75a3 3 0 00-3 3v.75h21v-.75a3 3 0 00-3-3h-15z" />
-                    <path
-                      fillRule="evenodd"
-                      d="M22.5 9.75h-21v7.5a3 3 0 003 3h15a3 3 0 003-3v-7.5zm-18 3.75a.75.75 0 01.75-.75h6a.75.75 0 010 1.5h-6a.75.75 0 01-.75-.75zm.75 2.25a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </span>
-                Pay
-              </button>
+              <Link to="/placeorder/">
+                <button
+                  type="submit"
+                  className="group relative flex w-full justify-center mt-7 rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-sm font-medium text-white hover:bg-green-600  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
+                  <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path d="M4.5 3.75a3 3 0 00-3 3v.75h21v-.75a3 3 0 00-3-3h-15z" />
+                      <path
+                        fillRule="evenodd"
+                        d="M22.5 9.75h-21v7.5a3 3 0 003 3h15a3 3 0 003-3v-7.5zm-18 3.75a.75.75 0 01.75-.75h6a.75.75 0 010 1.5h-6a.75.75 0 01-.75-.75zm.75 2.25a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  Pay
+                </button>
+              </Link>
             </div>
           </div>
         </form>
