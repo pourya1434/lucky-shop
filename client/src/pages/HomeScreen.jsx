@@ -22,7 +22,6 @@ function HomeScreen() {
       ) : (
         <>
           <Product products={products} />
-         
         </>
       )}
     </div>

@@ -1,11 +1,11 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   decreaseCart,
   increaseCart,
   remove,
 } from "../redux/slice/cart/cartSlice";
-import { Link } from 'react-router-dom';
 
 function CartScreen() {
   // const qty = searchParams.get("qty") ? Number(searchParams.get("qty")) : 1;
@@ -120,11 +120,11 @@ function CartScreen() {
                 <p className="text-sm text-gray-700">including VAT</p>
               </div>
             </div>
-           <Link to='/shipping/'>
-           <button className="mt-6 w-full rounded-md bg-blue-700 py-1.5 font-bold text-blue-50 hover:bg-green-600 ">
-              Shiping
-            </button>
-           </Link>
+            <Link to="/shipping/">
+              <button className="mt-6 w-full rounded-md bg-blue-700 py-1.5 font-bold text-blue-50 hover:bg-green-600 ">
+                Shiping
+              </button>
+            </Link>
           </div>
         </div>
       </div>
