@@ -43,13 +43,13 @@ const deliveryMethods = [
     id: 1,
     title: "پست معمولی",
     turnaround: "چهار تا ده روز کاری",
-    price: "$5.00",
+    price: 5,
   },
   {
     id: 2,
     title: "پست پیشتاز",
     turnaround: "دو تا پنج روز کاری",
-    price: "$16.00",
+    price: 16,
   },
 ];
 const paymentMethods = [
@@ -67,7 +67,7 @@ function CheckoutScreen() {
     deliveryMethods[0]
   );
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(
-    paymentMethods[0]
+    paymentMethods[0].id
   );
 
   useEffect(() => {
@@ -76,10 +76,13 @@ function CheckoutScreen() {
     }
   }, [shippingAddress]);
 
+  console.log("checkout", selectedDeliveryMethod, selectedPaymentMethod);
+
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(saveDeliveryMethod(selectedDeliveryMethod));
     dispatch(savePaymentMethod(selectedPaymentMethod));
+    navigator("/placeorder/");
   };
   return (
     <div className="min-h-screen items-center justify-center grid grid-cols-3 gap-2 bg-gray-50">
@@ -88,7 +91,7 @@ function CheckoutScreen() {
       </div>
 
       <div className="col-span-2 w-lg items-center justify-center m-auto py-12 px-4 sm:px-6 lg:px-8">
-        <form onSubmit={submitHandler}>
+        <form action="#" method="POST" onSubmit={submitHandler}>
           <div>
             <div className="mt-10 border-t border-gray-200 pt-10">
               <RadioGroup
@@ -132,7 +135,7 @@ function CheckoutScreen() {
                                 as="span"
                                 className="mt-6 text-sm font-medium text-gray-900"
                               >
-                                {deliveryMethod.price}
+                                {deliveryMethod.price} $
                               </RadioGroup.Description>
                             </span>
                           </span>
@@ -202,29 +205,28 @@ function CheckoutScreen() {
                   ))}
                 </div>
               </fieldset>
-              <Link to="/placeorder/">
-                <button
-                  type="submit"
-                  className="group relative flex w-full justify-center mt-7 rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-sm font-medium text-white hover:bg-green-600  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                  <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="w-6 h-6"
-                    >
-                      <path d="M4.5 3.75a3 3 0 00-3 3v.75h21v-.75a3 3 0 00-3-3h-15z" />
-                      <path
-                        fillRule="evenodd"
-                        d="M22.5 9.75h-21v7.5a3 3 0 003 3h15a3 3 0 003-3v-7.5zm-18 3.75a.75.75 0 01.75-.75h6a.75.75 0 010 1.5h-6a.75.75 0 01-.75-.75zm.75 2.25a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                  Pay
-                </button>
-              </Link>
+
+              <button
+                type="submit"
+                className="group relative flex w-full justify-center mt-7 rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-sm font-medium text-white hover:bg-green-600  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              >
+                <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path d="M4.5 3.75a3 3 0 00-3 3v.75h21v-.75a3 3 0 00-3-3h-15z" />
+                    <path
+                      fillRule="evenodd"
+                      d="M22.5 9.75h-21v7.5a3 3 0 003 3h15a3 3 0 003-3v-7.5zm-18 3.75a.75.75 0 01.75-.75h6a.75.75 0 010 1.5h-6a.75.75 0 01-.75-.75zm.75 2.25a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </span>
+                Pay
+              </button>
             </div>
           </div>
         </form>

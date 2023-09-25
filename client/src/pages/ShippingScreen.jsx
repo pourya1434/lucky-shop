@@ -56,7 +56,7 @@ function ShippingScreen() {
     SetFormData({ ...formData, [e.target.name]: e.target.value });
   };
   return (
-    <div className="flex min-h-screen bg-gray-50 items-center justify-center grid grid-cols-3 gap-2">
+    <div className="min-h-screen bg-gray-50 items-center justify-center grid grid-cols-3 gap-2">
       <div className="ml-auto">
         <Steps steps={steps} />
       </div>

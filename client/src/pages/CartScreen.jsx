@@ -156,8 +156,3 @@ function CartScreen() {
 }
 
 export default CartScreen;
-
-// TODO
-// change whole page design later
-// add remove
-// change qty in cart page
