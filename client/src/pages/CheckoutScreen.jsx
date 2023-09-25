@@ -76,8 +76,6 @@ function CheckoutScreen() {
     }
   }, [shippingAddress]);
 
-  console.log("checkout", selectedDeliveryMethod, selectedPaymentMethod);
-
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(saveDeliveryMethod(selectedDeliveryMethod));
