@@ -6,7 +6,7 @@ const initialState = {
   error: "",
   profile: {
     isLoading: false,
-    success: false
+    success: false,
   },
   userAuth: {
     userInfo: localStorage.getItem("userInfo")
@@ -23,7 +23,7 @@ export const loginUserAction = createAsyncThunk(
       // header
       const config = {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       };
       const { data } = await axios.post(
@@ -34,7 +34,7 @@ export const loginUserAction = createAsyncThunk(
         },
         config
       );
-        localStorage.setItem("userInfo", JSON.stringify(data))
+      localStorage.setItem("userInfo", JSON.stringify(data));
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -44,50 +44,58 @@ export const loginUserAction = createAsyncThunk(
 // register
 export const registerUserAction = createAsyncThunk(
   "user/register",
-  async({email, password}, {rejectWithValue}) => {
+  async ({ email, password }, { rejectWithValue }) => {
     try {
       // header
       const config = {
-        "Content-Type": 'application/json'
-      }
-      const {data} = await axios.post(
+        "Content-Type": "application/json",
+      };
+      const { data } = await axios.post(
         "/api/users/register/",
         {
           name: email,
           email: email,
-          password: password
+          password: password,
         },
         config
-      )
-      localStorage.setItem("userInfo", JSON.stringify(data))
-      return data
+      );
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      return data;
     } catch (error) {
-      return rejectWithValue(error.message)
+      return rejectWithValue(error.message);
     }
   }
-)
+);
 // update profile
 export const updateProfileUserAction = createAsyncThunk(
   "user/update-profile",
   async (payload, { rejectWithValue, getState }) => {
-    const {name , email, password} = payload
+    const { name, email, password } = payload;
     try {
-      const { user : {userAuth : {userInfo : {token}} } }= getState();
+      const {
+        user: {
+          userAuth: {
+            userInfo: { token },
+          },
+        },
+      } = getState();
       // header
       const config = {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       };
       const { data } = await axios.put(
         "/api/users/profile/update/",
         {
-          name, email, password
+          name,
+          email,
+          password,
         },
         config
       );
-        localStorage.setItem("userInfo", JSON.stringify(data))
+      localStorage.setItem("userInfo", JSON.stringify(data));
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -114,35 +122,35 @@ const userSlice = createSlice({
     });
     // register
     builder.addCase(registerUserAction.pending, (state) => {
-      state.isLoading = true
+      state.isLoading = true;
     });
     builder.addCase(registerUserAction.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.userAuth.userInfo = action.payload
-    })
+      state.userAuth.userInfo = action.payload;
+    });
     builder.addCase(registerUserAction.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = action.payload
-    })
+      state.error = action.payload;
+    });
     // update profile
     builder.addCase(updateProfileUserAction.pending, (state) => {
-      state.profile.isLoading = true
+      state.profile.isLoading = true;
     });
     builder.addCase(updateProfileUserAction.fulfilled, (state, action) => {
       state.profile.isLoading = false;
       state.profile.success = true;
       state.userAuth.userInfo = action.payload;
-    })
+    });
   },
   reducers: {
-    logout(state, action){
+    logout(state, action) {
       state.userAuth.userInfo = {};
       localStorage.removeItem("userInfo");
-    }
-  }
+    },
+  },
 });
 
 // reducer
 const userReducer = userSlice.reducer;
-export const {logout} = userSlice.actions;
+export const { logout } = userSlice.actions;
 export default userReducer;

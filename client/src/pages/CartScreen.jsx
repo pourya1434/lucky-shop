@@ -120,10 +120,7 @@ function CartScreen() {
 
         <div className="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-2/3">
           <div className="mb-2 flex-col items-center justify-between text-center">
-            <p className="text-gray-700 font-bold">
-              Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
-              item
-            </p>
+            <p className="text-gray-700 font-bold">Subtotal item</p>
             <p className="text-gray-700"></p>
           </div>
           <div className="flex justify-between">
