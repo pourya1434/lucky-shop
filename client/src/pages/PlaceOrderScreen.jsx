@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
+import { useSelector,useDispatch } from "react-redux";
 import Steps from "../components/steps";
+import { addOrderAction } from '../redux/slice/order/orderSlice'
 
 const steps = [
   {
@@ -32,12 +33,31 @@ function PlaceOrderScreen() {
   const { cartItems } = useSelector((state) => state.cart);
   const { shippingAddress } = useSelector((state) => state.cart);
   const { deliveryMethod } = useSelector((state) => state.cart);
+  const { paymentMethod } = useSelector((state) => state.cart);
+
+  const dispatch = useDispatch()
 
   const price = cartItems.reduce(
     (acc, item) => acc + item.qty * item.product.price,
     0
   );
   const totalPrice = deliveryMethod.price + price;
+  const placeOrder = () => {
+    dispatch(addOrderAction({
+      orderItems: cartItems,
+      shippingAddress: shippingAddress,
+      totalPrice: totalPrice,
+      itemPrice : price,
+      taxPrice : deliveryMethod.price,
+      paymentMethod: paymentMethod,
+      shippingPrice: deliveryMethod.price
+    }))
+    console.log({  orderItems: cartItems,
+        shippingAddress: shippingAddress,
+        totalPrice: totalPrice,
+        itemPrice : price,
+        taxPrice : deliveryMethod.price})
+  }
 
   return (
     <div className="flex space-x-32 m-5 p-5">
@@ -206,6 +226,19 @@ function PlaceOrderScreen() {
                   </div>
                 </dl>
               </div>
+              <button
+                type="submit"
+                onClick={placeOrder}
+                className="group relative flex w-full justify-center mt-7 rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-sm font-medium text-white hover:bg-green-600  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              >
+                <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                    </svg>
+
+                </span>
+                Order
+              </button>
             </div>
           </div>
         </div>

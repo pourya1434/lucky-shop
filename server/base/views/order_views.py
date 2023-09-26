@@ -14,7 +14,7 @@ def addOrderItems(request):
     data = request.data
 
     orderItems = data['orderItems']
-    print('orderItems => ',orderItems)
+    # print('orderItems => ',orderItems)
 
     if orderItems and len(orderItems) == 0:
         return Response({'detail': 'No Order Item'}, status=status.HTTP_400_BAD_REQUEST)
@@ -30,25 +30,27 @@ def addOrderItems(request):
         # 2=> create shipping address
         shipping = ShippingAddress.objects.create(
             order=order,
-            address=data['shippingAddress']['address'],
+            address=data['shippingAddress'],
             city=data['shippingAddress']['city'],
             postalCode=data['shippingAddress']['postalCode'],
-            name=data['shippingAddress']['name'],
+            # street=data['shippingAddress']['street'],
         )
+#   {'product': {'_id': 1, 'name': 'Tshirt', 'imageAlt': 't-shirt', 'imageSrc': '/images/tshirt.jpg', 'brand': 'homemade', 'category': 'clothes', 'description': 'T-shirt created with the best materials.\r\nhave a various design\r\nall sizes are available', 'rating': 0, 'reviewCount': 1, 'price': '41.20', 'counterInStock': 10, 'createdAt': '2023-08-12T11:14:17.542651Z', 'user': 1}, 'qty': '2'}       
         # 3=> create order items and set order to order item relationship
         for i in orderItems:
-            product = Product.objects.get(_id=i['product'])
+            # print('******=====>',i)
+            product = Product.objects.get(_id=i['product']['_id'])
             item = OrderItem.objects.create(
                 product=product,
                 order=order,
                 name=product.name,
                 qty=i['qty'],
-                price=i['price'],
-                image=product.image.url,
+                price=product.price,
+                image=product.imageSrc,
             )
             print('item => ', item)
             # 4=> update count in stock
-            product.countInStock -= item.qty
+            product.counterInStock -= int(item.qty)
             product.save()
         # serializer = OrderItemSerializer(item, many=False)
 
