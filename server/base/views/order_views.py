@@ -30,10 +30,9 @@ def addOrderItems(request):
         # 2=> create shipping address
         shipping = ShippingAddress.objects.create(
             order=order,
-            address=data['shippingAddress'],
             city=data['shippingAddress']['city'],
             postalCode=data['shippingAddress']['postalCode'],
-            # street=data['shippingAddress']['street'],
+            street=data['shippingAddress']['street'],
         )
 #   {'product': {'_id': 1, 'name': 'Tshirt', 'imageAlt': 't-shirt', 'imageSrc': '/images/tshirt.jpg', 'brand': 'homemade', 'category': 'clothes', 'description': 'T-shirt created with the best materials.\r\nhave a various design\r\nall sizes are available', 'rating': 0, 'reviewCount': 1, 'price': '41.20', 'counterInStock': 10, 'createdAt': '2023-08-12T11:14:17.542651Z', 'user': 1}, 'qty': '2'}       
         # 3=> create order items and set order to order item relationship
