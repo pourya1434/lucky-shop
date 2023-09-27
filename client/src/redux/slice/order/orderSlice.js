@@ -5,6 +5,7 @@ const initialState = {
   isLoading: false,
   success: false,
   order: [],
+  userOrder: [],
   error: "",
 };
 
@@ -12,7 +13,7 @@ const initialState = {
 export const addOrderAction = createAsyncThunk(
   "order/add",
   async (payload, { rejectWithValue, getState }) => {
-    console.log('payload', payload)
+    console.log("payload", payload);
     try {
       // token
       const {
@@ -37,6 +38,33 @@ export const addOrderAction = createAsyncThunk(
     }
   }
 );
+// get single order by id
+export const getOrderAction = createAsyncThunk(
+  "order/get",
+  async ({ id }, { rejectWithValue, getState }) => {
+    try {
+      // token
+      const {
+        user: {
+          userAuth: {
+            userInfo: { token },
+          },
+        },
+      } = getState();
+      // header
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axios.get(`/api/orders/${id}/`, config);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 const orderSlice = createSlice({
   name: "order",
@@ -54,6 +82,18 @@ const orderSlice = createSlice({
     builder.addCase(addOrderAction.rejected, (state, action) => {
       state.isLoading = false;
       state.success = false;
+      state.error = action.payload;
+    });
+    // get order
+    builder.addCase(getOrderAction.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getOrderAction.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.userOrder = action.payload;
+    });
+    builder.addCase(getOrderAction.rejected, (state, action) => {
+      state.isLoading = false;
       state.error = action.payload;
     });
   },
