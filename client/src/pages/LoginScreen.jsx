@@ -13,7 +13,7 @@ export default function Login() {
   });
   const dispatch = useDispatch();
   const navigator = useNavigate();
-  const { isLoading, error, userAuth } = useSelector((state) => state.user);
+  const { isLoading, error, userAuth } = useSelector((state) => state?.user);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -35,7 +35,7 @@ export default function Login() {
       ) : error ? (
         <Message>{error}</Message>
       ) : (
-        <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8 min-h-screen">
+        <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 min-h-screen">
           <div className="w-full max-w-md space-y-8">
             <div>
               <Link to="/">

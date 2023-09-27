@@ -12,7 +12,6 @@ const initialState = {
 export const addOrderAction = createAsyncThunk(
   "order/add",
   async (payload, { rejectWithValue, getState }) => {
-    console.log("action => ", payload);
     try {
       // token
       const {
