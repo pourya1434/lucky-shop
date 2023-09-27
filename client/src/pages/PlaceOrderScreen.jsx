@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Steps from "../components/steps";
 import { addOrderAction } from "../redux/slice/order/orderSlice";
+import { useNavigate } from "react-router-dom";
 
 const steps = [
   {
@@ -34,13 +35,21 @@ function PlaceOrderScreen() {
   const { shippingAddress } = useSelector((state) => state.cart);
   const { deliveryMethod } = useSelector((state) => state.cart);
   const { paymentMethod } = useSelector((state) => state.cart);
+  const { order, success } = useSelector((state) => state.order);
 
   const dispatch = useDispatch();
+  const navigator = useNavigate();
 
   const price = cartItems.reduce(
     (acc, item) => acc + item.qty * item.product.price,
     0
   );
+  useEffect(() => {
+    if (success) {
+      navigator(`order/${order._id}/`);
+    }
+  }, [success, order._id]);
+
   const totalPrice = deliveryMethod.price + price;
   const placeOrder = () => {
     dispatch(
